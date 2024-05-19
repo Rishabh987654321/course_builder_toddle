@@ -65,6 +65,18 @@ export default function App() {
   // Three dots dropdown menu
   const [editDropdownMenu, setEditDropdownMenu] = useState(false);
 
+  useEffect(() => {
+    const storedItems = localStorage.getItem("items");
+    if (storedItems) {
+      setItems(JSON.parse(storedItems));
+    }
+  }, []);
+
+  // Save items to local storage whenever they change
+  useEffect(() => {
+    localStorage.setItem("items", JSON.stringify(items));
+  }, [items]);
+
   // listens for any outside click which  will close the dropdown menu and overlay
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
