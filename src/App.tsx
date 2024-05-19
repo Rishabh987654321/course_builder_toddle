@@ -25,10 +25,11 @@ import CreateModuleOverlay from "./components/CreateModuleOverlay";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import EditModuleOverlay from "./components/EditModuleOverlay";
 import FileRenameOverlay from "./components/FileRenameOverlay";
-import _, { set } from "lodash";
+
 import AddLinkOverlay from "./components/AddLinkOverlay";
 import EditLinkOverlay from "./components/EditLinkOverlay";
 import { toast } from "react-toastify";
+import * as _ from "lodash";
 
 // INFO :-This project is all single page , that is why i wrote
 //everything in one file except some lengthy overlays
@@ -168,7 +169,7 @@ export default function App() {
         className={`bg-white ${
           props.item.parentId !== null
             ? "!mt-0 rounded-tl-none rounded-tr-none shadow-none !pl-[25px]"
-            : props.item.parentId == null &&
+            : props.item.parentId === null &&
               (props?.item?.children?.length ?? 0) > 0
             ? "rounded-bl-none rounded-br-none border-b-[1px] border-b-gray-200"
             : ""
@@ -448,10 +449,15 @@ export default function App() {
           items={items}
           onItemsChanged={setItems}
           TreeItemComponent={TreeItem}
+          pointerSensorOptions={{
+            activationConstraint: {
+              distance: 3,
+            },
+          }}
         />
 
         {/* _______________ Empty state _______________ */}
-        {Array.isArray(items) && items.length == 0 && (
+        {Array.isArray(items) && items.length === 0 && (
           <div className="flex items-center justify-center min-h-[70vh]">
             <div className="empty space-y-2 flex flex-col text-sm justify-center items-center">
               <img
