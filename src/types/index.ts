@@ -4,21 +4,25 @@ export interface Resources {
   id: string;
   type: SupportedFileType;
   title: string;
-  contents?: Content[] | []; // Only for module type
+  contents?: Content[]; // Simplified, no need for | [] since an empty array is covered by []
 }
 
 export interface Module {
   title: string;
   type: "module";
-  contents: Content[] | [];
+  contents: Content[];
 }
 
 export type Content = {
-  type: "pdf" | "link" | "png" | "jpg" | "jpeg";
+  type: SupportedFileType;
   title: string;
   id: string;
 };
 
 export type MinimalTreeItemData = {
-  value: string;
+  id: string;         
+  value: string;       
+  type?: SupportedFileType | "module";
+  parentId?: string | null;  
+  displayName?: string;
 };
